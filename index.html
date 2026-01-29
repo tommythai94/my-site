@@ -161,7 +161,7 @@ button {
   <!-- ================= PAGE 2 ================= -->
   <section id="page2" class="page">
 <h1 id="gameTitle">Tug of War</h1>
-    <p class="subtitle">Fight me for Diep.</p>
+<p class="subtitle" id="gameSubtitle">Fight me for Diep.</p>
 
     <div id="rope-container">
       <div class="side-label left">ME</div>
@@ -328,6 +328,10 @@ if (position <= 0) {
   title.textContent = "BIG NEWS COMING SOON...";
   title.style.fontSize = "64px";
   title.style.letterSpacing = "2px";
+
+  const subtitle = document.getElementById("gameSubtitle");
+subtitle.style.display = "none";
+
 }
 
 
