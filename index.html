@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Tug of War for Diệp</title>
+  <title>How Much Do You Love Diệp?</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
@@ -18,41 +18,51 @@
         #fdfbfb 100%
       );
       color: #1f2937;
+      overflow-x: hidden;
     }
 
     button {
-      padding: 14px 28px;
+      padding: 16px 32px;
       border-radius: 999px;
       background: #6366f1;
       color: white;
       border: none;
       font-size: 16px;
       cursor: pointer;
+      margin: 12px;
       transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
-    button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 8px 24px rgba(99,102,241,0.4);
+    button.alt {
+      background: #ef4444;
     }
 
-    /* ---------- HERO ---------- */
-    .hero {
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+
+    .page {
+      display: none;
       text-align: center;
-      padding: 120px 24px 80px;
+      padding: 120px 24px;
       max-width: 1000px;
       margin: 0 auto;
     }
 
-    .hero h1 {
+    .page.active {
+      display: block;
+    }
+
+    h1 {
       font-size: 52px;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       letter-spacing: -1px;
     }
 
     .subtitle {
-      font-size: 18px;
-      opacity: 0.75;
+      font-size: 20px;
+      opacity: 0.8;
       margin-bottom: 40px;
     }
 
@@ -93,22 +103,35 @@
     .side-label.left { left: 0; }
     .side-label.right { right: 0; }
 
-    /* ---------- STATUS ---------- */
+    #pullBtn {
+      display: none;
+    }
+
     #status {
       font-size: 18px;
       margin-top: 24px;
-    }
-
-    #pullBtn {
-      margin-top: 28px;
-      display: none;
     }
   </style>
 </head>
 
 <body>
 
-  <section class="hero">
+  <!-- ================= PAGE 1 ================= -->
+  <section id="page1" class="page active">
+    <h1>How much do you love Diệp?</h1>
+    <p class="subtitle">Be honest. This determines what happens next.</p>
+
+    <button onclick="goToFight('cool')">
+      😌 She’s pretty coolio
+    </button>
+
+    <button class="alt" onclick="goToFight('fight')">
+      😤 I’ll fight you for her
+    </button>
+  </section>
+
+  <!-- ================= PAGE 2 ================= -->
+  <section id="page2" class="page">
     <h1>Tug of War</h1>
     <p class="subtitle">Fight me for Diệp.</p>
 
@@ -116,7 +139,6 @@
       <div class="side-label left">YOU</div>
       <div class="side-label right">FRIENDS</div>
 
-      <!-- REAL ROPE -->
       <svg id="rope-svg" viewBox="0 0 800 20" preserveAspectRatio="none">
         <path
           d="M0 10 Q 50 6, 100 10 T 200 10 T 300 10 T 400 10 T 500 10 T 600 10 T 700 10 T 800 10"
@@ -128,7 +150,6 @@
         />
       </svg>
 
-      <!-- DIỆP -->
       <img id="diep" src="diep.png" alt="Diệp">
     </div>
 
@@ -140,6 +161,17 @@
   </section>
 
   <script>
+    /* ---------- PAGE FLOW ---------- */
+    function goToFight(choice) {
+      document.getElementById("page1").classList.remove("active");
+      document.getElementById("page2").classList.add("active");
+
+      if (choice === "fight") {
+        document.getElementById("status").textContent =
+          "Bold choice. Let’s see what you’ve got.";
+      }
+    }
+
     /* ---------- GAME STATE ---------- */
     let position = 50;
     let gameStarted = false;
@@ -211,7 +243,6 @@
       }, 200);
     }
 
-    // initialize position
     updateBar();
   </script>
 
