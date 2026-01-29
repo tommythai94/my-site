@@ -272,6 +272,12 @@ function playerPull() {
 intervalId = setInterval(() => {
   if (gameOver) return;
 
+  // 🟢 dynamic captions ONLY before trap
+  if (!trapTriggered) {
+    updateStatus();
+  }
+
+
   // 🔥 SNAP TRIGGER (one-way)
 if (position >= 92 && !trapTriggered) {
   trapTriggered = true;
