@@ -326,39 +326,26 @@ intervalId = setInterval(() => {
     updateBar(scale);
   }
 
-  // 🏁 END
+  // 🏁 END GAME (ONLY PLACE THIS EXISTS)
   if (position <= 0) {
     position = 0;
     gameOver = true;
     clearInterval(intervalId);
+
+    document.getElementById("diep").src = DIEP_LOSE;
+    document.getElementById("status").textContent =
+      "Don't worry I'll take good care of her. 💍";
+
+    const title = document.getElementById("gameTitle");
+    title.textContent = "BIG NEWS COMING SOON...";
+    title.style.fontSize = "64px";
+    title.style.letterSpacing = "2px";
+
+    const subtitle = document.getElementById("gameSubtitle");
+    subtitle.style.display = "none";
   }
 }, 200);
 
-
-
-
-
-if (position <= 0) {
-  position = 0;
-  gameOver = true;
-  clearInterval(intervalId);
-
-  document.getElementById("diep").src = DIEP_LOSE;
-  document.getElementById("status").textContent =
-    "Don't worry I'll take good care of her. 💍";
-    const title = document.getElementById("gameTitle");
-  title.textContent = "BIG NEWS COMING SOON...";
-  title.style.fontSize = "64px";
-  title.style.letterSpacing = "2px";
-
-  const subtitle = document.getElementById("gameSubtitle");
-subtitle.style.display = "none";
-
-}
-
-
-  updateBar();
-}, 200);
 
 
 
