@@ -294,29 +294,27 @@ if (trapTriggered) {
   const diepImg = document.getElementById("diep");
   const status = document.getElementById("status");
 
-  // STAGE 1: 92 → 66
+  // FIRST THIRD (92 → 66)
   if (position > 66 && snapStage === 0) {
     snapStage = 1;
     diepImg.src = DIEP_SNAP_SEQUENCE[0]; // p3
     status.textContent = "YOU THOUGHT";
   }
 
-  // STAGE 2: 66 → 33
+  // SECOND THIRD (66 → 33)
   else if (position <= 66 && position > 33 && snapStage === 1) {
     snapStage = 2;
     diepImg.src = DIEP_SNAP_SEQUENCE[1]; // p4
     status.textContent = "Put some back into it!";
   }
 
-  // STAGE 3: 33 → 0
+  // FINAL THIRD (33 → 0)
   else if (position <= 33 && snapStage === 2) {
     snapStage = 3;
     diepImg.src = DIEP_SNAP_SEQUENCE[2]; // p5
     status.textContent = "She’s all mine.";
   }
 }
-
-
 
 
 
