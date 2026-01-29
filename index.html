@@ -250,17 +250,20 @@ function playSnapSequence() {
   const diepImg = document.getElementById("diep");
   snapInProgress = true;
 
-  DIEP_SNAP_SEQUENCE.forEach((src, index) => {
-    setTimeout(() => {
-      diepImg.src = src;
-    }, index * SNAP_FRAME_DELAY);
-  });
+  // force a render frame before snap starts
+  setTimeout(() => {
+    DIEP_SNAP_SEQUENCE.forEach((src, index) => {
+      setTimeout(() => {
+        diepImg.src = src;
+      }, index * SNAP_FRAME_DELAY);
+    });
+  }, 50); // 👈 critical delay
 
-  // unlock AFTER the full sequence finishes
   setTimeout(() => {
     snapInProgress = false;
-  }, DIEP_SNAP_SEQUENCE.length * SNAP_FRAME_DELAY);
+  }, 50 + DIEP_SNAP_SEQUENCE.length * SNAP_FRAME_DELAY);
 }
+
 
 
 
