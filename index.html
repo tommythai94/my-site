@@ -282,49 +282,40 @@ intervalId = setInterval(() => {
   }
 
 
-  // 🔥 SNAP TRIGGER (one-way)
+// 🔥 SNAP TRIGGER (one-way)
 if (position >= 92 && !trapTriggered) {
   trapTriggered = true;
-  document.getElementById("status").textContent = "YOU THOUGHT";
-  document.getElementById("diep").src = DIEP_SNAP_SEQUENCE[0]; // p3
 }
 
-
-
+// 💥 SNAP BACK SEQUENCE
 if (trapTriggered) {
   position -= 2;
 
   const diepImg = document.getElementById("diep");
   const status = document.getElementById("status");
 
-  // IMAGE STAGES (one-way)
-  if (position > 66 && snapStage < 1) {
-    diepImg.src = DIEP_SNAP_SEQUENCE[0]; // p3
+  // STAGE 1: 92 → 66
+  if (position > 66 && snapStage === 0) {
     snapStage = 1;
-  } 
-  else if (position > 33 && snapStage < 2) {
-    diepImg.src = DIEP_SNAP_SEQUENCE[1]; // p4
-    snapStage = 2;
-  } 
-  else if (position > 0 && snapStage < 3) {
-    diepImg.src = DIEP_SNAP_SEQUENCE[2]; // p5
-    snapStage = 3;
+    diepImg.src = DIEP_SNAP_SEQUENCE[0]; // p3
+    status.textContent = "YOU THOUGHT";
   }
 
-  // CAPTION STAGES (one-way)
-  if (captionStage === 0) {
-    status.textContent = "YOU THOUGHT";
-    captionStage = 1;
-  } 
-  else if (position <= 66 && captionStage === 1) {
+  // STAGE 2: 66 → 33
+  else if (position <= 66 && position > 33 && snapStage === 1) {
+    snapStage = 2;
+    diepImg.src = DIEP_SNAP_SEQUENCE[1]; // p4
     status.textContent = "Put some back into it!";
-    captionStage = 2;
-  } 
-  else if (position <= 33 && captionStage === 2) {
+  }
+
+  // STAGE 3: 33 → 0
+  else if (position <= 33 && snapStage === 2) {
+    snapStage = 3;
+    diepImg.src = DIEP_SNAP_SEQUENCE[2]; // p5
     status.textContent = "She’s all mine.";
-    captionStage = 3;
   }
 }
+
 
 
 
