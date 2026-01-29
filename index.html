@@ -232,14 +232,25 @@ const DIEP_LOSE = "p6.png";
 
 function playerPull() {
   if (!gameStarted || gameOver) return;
-
-  // 🚫 once trap triggers, clicks do NOTHING
   if (trapTriggered) return;
 
-  position += 5;           // easy progress
+  const diepImg = document.getElementById("diep");
+  diepImg.src = DIEP_CLICKING;
+
+  position += 5;
   if (position > 94) position = 94;
 
   updateBar();
+}
+
+function playSnapSequence() {
+  const diepImg = document.getElementById("diep");
+
+  DIEP_SNAP_SEQUENCE.forEach((src, index) => {
+    setTimeout(() => {
+      diepImg.src = src;
+    }, index * 250);
+  });
 }
 
 
@@ -273,10 +284,12 @@ intervalId = setInterval(() => {
   if (gameOver) return;
 
   // 🔥 SNAP TRIGGER (one-way)
-  if (position >= 92 && !trapTriggered) {
-    trapTriggered = true;
-    document.getElementById("status").textContent = "WAIT—";
-  }
+if (position >= 92 && !trapTriggered) {
+  trapTriggered = true;
+  document.getElementById("status").textContent = "WAIT—";
+  playSnapSequence();
+}
+
 
   if (trapTriggered) {
     // 💥 HARD SNAP BACK — ALWAYS RUNS
@@ -286,14 +299,16 @@ intervalId = setInterval(() => {
     position -= 1;
   }
 
-  if (position <= 0) {
-    position = 0;
-    gameOver = true;
-    clearInterval(intervalId);
+if (position <= 0) {
+  position = 0;
+  gameOver = true;
+  clearInterval(intervalId);
 
-    document.getElementById("status").textContent =
-      "You had her. Then she remembered who she loves. 💍";
-  }
+  document.getElementById("diep").src = DIEP_LOSE;
+  document.getElementById("status").textContent =
+    "You had her. Then she remembered who she loves. 💍";
+}
+
 
   updateBar();
 }, 200);
