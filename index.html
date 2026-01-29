@@ -97,11 +97,16 @@
     </div>
   </div>
 
-  <button onclick="playerPull()">Pull Her Back</button>
+<button id="startBtn" onclick="startGame()">Catch these hands</button>
+<button id="pullBtn" onclick="playerPull()" style="display:none;">
+  Pull Her Back
+</button>
 
-  <p id="status" style="text-align:center; margin-top:16px;">
-    She’s undecided…
-  </p>
+
+<p id="status" style="text-align:center; margin-top:16px;">
+  Are you ready to fight for your Diệp?
+</p>
+
 </div>
 
   <script>
@@ -157,22 +162,37 @@ function updateStatus() {
   }
 }
 
-setInterval(() => {
-  if (gameOver) return;
+let gameStarted = false;
+let intervalId = null;
 
-  position -= 3;
-  if (position <= 0) {
-    position = 0;
-    gameOver = true;
+function startGame() {
+  if (gameStarted) return;
+  gameStarted = true;
 
-    const status = document.getElementById("status");
-    if (status) {
-      status.textContent = "You tried. She’s mine. 💍";
+  document.getElementById("startBtn").style.display = "none";
+  document.getElementById("pullBtn").style.display = "block";
+
+  document.getElementById("status").textContent =
+    "She’s undecided… for now.";
+
+  intervalId = setInterval(() => {
+    if (gameOver) return;
+
+    position -= 3;
+    if (position <= 0) {
+      position = 0;
+      gameOver = true;
+      clearInterval(intervalId);
+
+      document.getElementById("status").textContent =
+        "You tried. She’s mine. 💍";
     }
-  }
 
-  updateBar();
-}, 200);
+    updateBar();
+  }, 200);
+}
+
+updateBar();
 
   </script>
 </body>
