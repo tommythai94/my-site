@@ -206,6 +206,8 @@ button {
     let gameOver = false;
     let intervalId = null;
     let trapTriggered = false;
+    let snapStage = 0; // 0 = not started, 1 = p3, 2 = p4, 3 = p5
+
     
 /* ---------- DIEP IMAGES ---------- */
 const DIEP_IDLE = "diep.png";
@@ -286,27 +288,31 @@ if (position >= 92 && !trapTriggered) {
 
 
 
-
 if (trapTriggered) {
-  position -= 2; // slow, dramatic pull-back
+  position -= 2;
 
   const diepImg = document.getElementById("diep");
+  const status = document.getElementById("status");
 
-if (position > 66) {
-  diepImg.src = DIEP_SNAP_SEQUENCE[0]; // p3
-  status.textContent = "YOU THOUGHT";
-} else if (position > 33) {
-  diepImg.src = DIEP_SNAP_SEQUENCE[1]; // p4
-  status.textContent = "But some back into it!";
-} else if (position > 0) {
-  diepImg.src = DIEP_SNAP_SEQUENCE[2]; // p5
-  status.textContent = "She’s all mine.";
+  if (position > 66 && snapStage !== 1) {
+    snapStage = 1;
+    diepImg.src = DIEP_SNAP_SEQUENCE[0]; // p3
+    status.textContent = "YOU THOUGHT";
+  }
+
+  else if (position > 33 && snapStage !== 2) {
+    snapStage = 2;
+    diepImg.src = DIEP_SNAP_SEQUENCE[1]; // p4
+    status.textContent = "But she came back.";
+  }
+
+  else if (position > 0 && snapStage !== 3) {
+    snapStage = 3;
+    diepImg.src = DIEP_SNAP_SEQUENCE[2]; // p5
+    status.textContent = "She’s all mine.";
+  }
 }
 
-
-} else {
-  position -= 1; // gentle drift before trap
-}
 
 
 
