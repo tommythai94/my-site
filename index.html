@@ -111,15 +111,19 @@
       font-size: 18px;
       margin-top: 24px;
     }
-  #ball {
+#ball {
   position: fixed;
   top: 20px;
   left: 20px;
-  width: 60px;
-  height: 60px;
+  width: 120px;          /* 2× bigger */
+  height: 120px;         /* 2× bigger */
+  border-radius: 50%;    /* makes it a circle */
+  object-fit: cover;     /* crops nicely */
   z-index: 9999;
   pointer-events: none;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
 }
+
   </style>
 </head>
 
@@ -263,10 +267,12 @@ let dx = 2.2;
 let dy = 1.8;
 
 function moveBall() {
-  const ballSize = 60;
+const ballSize = 120;
   const maxX = window.innerWidth - ballSize;
   const maxY = window.innerHeight - ballSize;
+ball.style.transform = `rotate(${x * 0.05}deg)`;
 
+  
   x += dx;
   y += dy;
 
