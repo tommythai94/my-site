@@ -2,36 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+
+  <!-- 👇 PUT IT HERE -->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  />
   <title>How Much Do You Love Diep?</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
     /* ---------- GLOBAL ---------- */
-    body {
-      font-family: Inter, Arial, sans-serif;
-      margin: 0;
-      min-height: 100vh;
-      background: linear-gradient(
-        180deg,
-        #fbc2eb 0%,
-        #a6c1ee 45%,
-        #fdfbfb 100%
-      );
-      color: #1f2937;
-      overflow-x: hidden;
-    }
+body {
+  font-family: Inter, Arial, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(
+    180deg,
+    #fbc2eb 0%,
+    #a6c1ee 45%,
+    #fdfbfb 100%
+  );
+  color: #1f2937;
+  overflow-x: hidden;
 
-    button {
-      padding: 16px 32px;
-      border-radius: 999px;
-      background: #6366f1;
-      color: white;
-      border: none;
-      font-size: 16px;
-      cursor: pointer;
-      margin: 12px;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
+  -webkit-text-size-adjust: 100%;
+}
+
+
+button {
+  padding: 16px 32px;
+  border-radius: 999px;
+  background: #6366f1;
+  color: white;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 12px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  /* 👇 MOBILE ZOOM FIXES */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
 
     button.alt {
       background: #ef4444;
