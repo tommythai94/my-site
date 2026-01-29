@@ -206,6 +206,8 @@ button {
     let gameStarted = false;
     let gameOver = false;
     let intervalId = null;
+    let trapTriggered = false;
+
 
     function updateBar() {
       const diep = document.getElementById("diep");
@@ -226,24 +228,16 @@ button {
 function playerPull() {
   if (!gameStarted || gameOver) return;
 
-  let pullStrength;
+  // Once trap is triggered, clicking does nothing
+  if (trapTriggered) return;
 
-  if (position < 70) {
-    pullStrength = 4.5;      // feels VERY strong early
-  } else if (position < 90) {
-    pullStrength = 2.2;      // still moving, but slower
-  } else {
-    pullStrength = 0.3;      // fake progress zone 😈
-  }
-
-  position += pullStrength;
-
-  // hard cap — they can never actually win
+  position += 5;          // VERY generous
   if (position > 94) position = 94;
 
   updateBar();
   updateStatus();
 }
+
 
 
 
@@ -273,35 +267,38 @@ function playerPull() {
 intervalId = setInterval(() => {
   if (gameOver) return;
 
-let pullBack;
+  // 🔥 SNAP TRIGGER
+  if (position >= 92 && !trapTriggered) {
+    trapTriggered = true;
+  }
 
-if (position > 90) {
-  pullBack = 8;        // sudden collapse
-  dx *= 1.03;
-  dy *= 1.03;
-} else if (position > 70) {
-  pullBack = 3;        // tension zone
-} else {
-  pullBack = 1.5;      // barely pulling early
-}
+  if (trapTriggered) {
+    // violent yank left
+    position -= 12;
 
+    // chaos spike
+    dx *= 1.05;
+    dy *= 1.05;
 
-  // cap chaos speed
-  dx = Math.min(dx, 8);
-  dy = Math.min(dy, 8);
-
-  position -= pullBack;
+    dx = Math.min(dx, 12);
+    dy = Math.min(dy, 12);
+  } else {
+    // gentle pull early
+    position -= 1;
+  }
 
   if (position <= 0) {
     position = 0;
     gameOver = true;
     clearInterval(intervalId);
+
     document.getElementById("status").textContent =
-      "You had her for a second… then you didn’t. 💍";
+      "You had her. Then she remembered who she loves. 💍";
   }
 
   updateBar();
 }, 200);
+
 
 }   // ✅ end of startGame
 
