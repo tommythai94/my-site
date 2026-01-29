@@ -301,11 +301,6 @@ if (position > 66) {
 } else if (position > 0) {
   diepImg.src = DIEP_SNAP_SEQUENCE[2]; // p5
   status.textContent = "She’s all mine.";
-
-  const title = document.getElementById("gameTitle");
-  title.textContent = "BIG NEWS COMING SOON...";
-  title.style.fontSize = "64px";
-  title.style.letterSpacing = "2px";
 }
 
 
@@ -323,6 +318,10 @@ if (position <= 0) {
   document.getElementById("diep").src = DIEP_LOSE;
   document.getElementById("status").textContent =
     "Don't worry I'll take good care of her. 💍";
+    const title = document.getElementById("gameTitle");
+  title.textContent = "BIG NEWS COMING SOON...";
+  title.style.fontSize = "64px";
+  title.style.letterSpacing = "2px";
 }
 
 
