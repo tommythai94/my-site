@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Interactive Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 60px auto;
+      padding: 24px;
+      background: #020617;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    h1 {
+      margin-top: 0;
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      border-radius: 6px;
+      border: none;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 12px;
+      width: 100%;
+      padding: 12px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    .output {
+      margin-top: 20px;
+      padding: 12px;
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 6px;
+      min-height: 40px;
+    }
+
+    .counter {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 18px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Interactive Website</h1>
+
+    <label>Type something:</label>
+    <input id="textInput" placeholder="Try typing your name..." />
+
+    <button onclick="showMessage()">Show Message</button>
+
+    <div class="output" id="messageOutput"></div>
+
+    <div class="counter">
+      <p>Button clicked: <span id="count">0</span> times</p>
+      <button onclick="increment()">Click Me</button>
+    </div>
+  </div>
+
+  <script>
+    let count = 0;
+
+    function showMessage() {
+      const input = document.getElementById("textInput").value;
+      const output = document.getElementById("messageOutput");
+
+      if (input.trim() === "") {
+        output.textContent = "Please type something.";
+      } else {
+        output.textContent = `Hello, ${input}! This site is interactive.`;
+      }
+    }
+
+    function increment() {
+      count++;
+      document.getElementById("count").textContent = count;
+    }
+  </script>
+</body>
+</html>
