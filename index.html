@@ -2,232 +2,218 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Interactive Website</title>
+  <title>Tug of War for Diệp</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
+    /* ---------- GLOBAL ---------- */
     body {
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: #e5e7eb;
+      font-family: Inter, Arial, sans-serif;
       margin: 0;
-      padding: 0;
-    }
-
-    .container {
-      max-width: 600px;
-      margin: 60px auto;
-      padding: 24px;
-      background: #020617;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    }
-
-    h1 {
-      margin-top: 0;
-      text-align: center;
-    }
-
-    input {
-      width: 100%;
-      padding: 12px;
-      margin-top: 12px;
-      border-radius: 6px;
-      border: none;
-      font-size: 16px;
+      min-height: 100vh;
+      background: linear-gradient(
+        180deg,
+        #fbc2eb 0%,
+        #a6c1ee 45%,
+        #fdfbfb 100%
+      );
+      color: #1f2937;
     }
 
     button {
-      margin-top: 12px;
-      width: 100%;
-      padding: 12px;
-      background: #2563eb;
+      padding: 14px 28px;
+      border-radius: 999px;
+      background: #6366f1;
       color: white;
       border: none;
-      border-radius: 6px;
       font-size: 16px;
       cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
     button:hover {
-      background: #1d4ed8;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(99,102,241,0.4);
     }
 
-    .output {
-      margin-top: 20px;
-      padding: 12px;
-      background: #020617;
-      border: 1px solid #1e293b;
-      border-radius: 6px;
-      min-height: 40px;
-    }
-
-    .counter {
-      margin-top: 20px;
+    /* ---------- HERO ---------- */
+    .hero {
       text-align: center;
-      font-size: 18px;
+      padding: 120px 24px 80px;
+      max-width: 1000px;
+      margin: 0 auto;
     }
 
+    .hero h1 {
+      font-size: 52px;
+      margin-bottom: 12px;
+      letter-spacing: -1px;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      opacity: 0.75;
+      margin-bottom: 40px;
+    }
+
+    /* ---------- ROPE SCENE ---------- */
     #rope-container {
-  position: relative;
-  height: 120px;
-  margin: 30px 0;
-}
+      position: relative;
+      margin: 80px auto 40px;
+      max-width: 720px;
+      height: 200px;
+    }
 
-#rope {
-  position: absolute;
-  top: 60px;
-  left: 0;
-  right: 0;
-  height: 6px;
-  background: repeating-linear-gradient(
-    90deg,
-    #cbd5e1,
-    #cbd5e1 10px,
-    #94a3b8 10px,
-    #94a3b8 20px
-  );
-  border-radius: 4px;
-}
+    #rope-svg {
+      position: absolute;
+      top: 110px;
+      left: 0;
+      width: 100%;
+      height: 24px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+    }
 
-#diep {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 70px;
-  transition: left 0.15s ease-out;
-  pointer-events: none;
-}
+    #diep {
+      position: absolute;
+      top: 20px;
+      width: 72px;
+      z-index: 2;
+      transition: left 0.15s ease-out, transform 0.15s ease-out;
+      pointer-events: none;
+    }
 
+    .side-label {
+      position: absolute;
+      top: 0;
+      font-size: 12px;
+      letter-spacing: 1px;
+      opacity: 0.7;
+    }
+
+    .side-label.left { left: 0; }
+    .side-label.right { right: 0; }
+
+    /* ---------- STATUS ---------- */
+    #status {
+      font-size: 18px;
+      margin-top: 24px;
+    }
+
+    #pullBtn {
+      margin-top: 28px;
+      display: none;
+    }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <h1>Interactive Website</h1>
 
-    <label>Type something:</label>
-    <input id="textInput" placeholder="Try typing your name..." />
+  <section class="hero">
+    <h1>Tug of War</h1>
+    <p class="subtitle">Fight me for Diệp.</p>
 
-    <button onclick="showMessage()">Show Message</button>
+    <div id="rope-container">
+      <div class="side-label left">YOU</div>
+      <div class="side-label right">FRIENDS</div>
 
-    <div class="output" id="messageOutput"></div>
+      <!-- REAL ROPE -->
+      <svg id="rope-svg" viewBox="0 0 800 20" preserveAspectRatio="none">
+        <path
+          d="M0 10 Q 50 6, 100 10 T 200 10 T 300 10 T 400 10 T 500 10 T 600 10 T 700 10 T 800 10"
+          stroke="#cbd5e1"
+          stroke-width="6"
+          fill="none"
+          stroke-linecap="round"
+          stroke-dasharray="8 6"
+        />
+      </svg>
 
-    <div class="counter">
-      <p>Button clicked: <span id="count">0</span> times</p>
-      <button onclick="increment()">Click Me</button>
+      <!-- DIỆP -->
+      <img id="diep" src="diep.png" alt="Diệp">
     </div>
-  </div>
-  
-<div class="container">
-  <h1>Tug of War</h1>
-  <p style="text-align:center;">Fight me for Diệp.</p>
 
-<div id="rope-container">
-  <div id="rope"></div>
-  <img id="diep" src="diep.png" alt="Diệp">
-</div>
+    <p id="status">Are you ready to fight for your Diệp?</p>
 
-
-<button id="startBtn" onclick="startGame()">Catch these hands</button>
-<button id="pullBtn" onclick="playerPull()" style="display:none;">
-  Pull Her Back
-</button>
-
-
-<p id="status" style="text-align:center; margin-top:16px;">
-  Are you ready to fight for your Diệp?
-</p>
-
-</div>
+    <button id="startBtn" onclick="startGame()">Catch these hands</button>
+    <br />
+    <button id="pullBtn" onclick="playerPull()">Pull Her Back</button>
+  </section>
 
   <script>
-    let count = 0;
+    /* ---------- GAME STATE ---------- */
+    let position = 50;
+    let gameStarted = false;
+    let gameOver = false;
+    let intervalId = null;
 
-    function showMessage() {
-      const input = document.getElementById("textInput").value;
-      const output = document.getElementById("messageOutput");
+    function updateBar() {
+      const diep = document.getElementById("diep");
+      const rope = document.getElementById("rope-container");
+      if (!diep || !rope) return;
 
-      if (input.trim() === "") {
-        output.textContent = "Please type something.";
+      const ropeWidth = rope.offsetWidth;
+      const diepWidth = diep.offsetWidth;
+      const maxX = ropeWidth - diepWidth;
+
+      const x = (position / 100) * maxX;
+
+      diep.style.left = x + "px";
+      diep.style.transform =
+        `rotate(${(50 - position) * 0.15}deg)`;
+    }
+
+    function playerPull() {
+      if (!gameStarted || gameOver) return;
+
+      position += 3;
+      if (position > 95) position = 95;
+
+      updateBar();
+      updateStatus();
+    }
+
+    function updateStatus() {
+      const status = document.getElementById("status");
+
+      if (position < 20) {
+        status.textContent = "She’s already choosing me 😌";
+      } else if (position < 40) {
+        status.textContent = "You’re slipping…";
+      } else if (position < 60) {
+        status.textContent = "Still fighting?";
       } else {
-        output.textContent = `Hello, ${input}! This site is interactive.`;
+        status.textContent = "You almost had her…";
       }
     }
 
-    function increment() {
-      count++;
-      document.getElementById("count").textContent = count;
-    }
-let position = 50;
-let gameOver = false;
+    function startGame() {
+      if (gameStarted) return;
+      gameStarted = true;
 
-function updateBar() {
-  const diep = document.getElementById("diep");
-  if (!diep) return;
-
-  diep.style.left = position + "%";
-}
-
-
-function playerPull() {
-  if (gameOver) return;
-
-  position += 2;
-  if (position > 95) position = 95;
-
-  updateBar();
-  updateStatus();
-}
-
-function updateStatus() {
-  const status = document.getElementById("status");
-  if (!status) return;
-
-  if (position < 20) {
-    status.textContent = "She’s already choosing me 😌";
-  } else if (position < 40) {
-    status.textContent = "You’re slipping…";
-  } else if (position < 60) {
-    status.textContent = "Still fighting?";
-  } else {
-    status.textContent = "You almost had her…";
-  }
-}
-
-let gameStarted = false;
-let intervalId = null;
-
-function startGame() {
-  if (gameStarted) return;
-  gameStarted = true;
-
-  document.getElementById("startBtn").style.display = "none";
-  document.getElementById("pullBtn").style.display = "block";
-
-  document.getElementById("status").textContent =
-    "She’s undecided… for now.";
-
-  intervalId = setInterval(() => {
-    if (gameOver) return;
-
-    position -= 3;
-    if (position <= 0) {
-      position = 0;
-      gameOver = true;
-      clearInterval(intervalId);
-
+      document.getElementById("startBtn").style.display = "none";
+      document.getElementById("pullBtn").style.display = "inline-block";
       document.getElementById("status").textContent =
-        "You tried. She’s mine. 💍";
+        "She’s undecided… for now.";
+
+      intervalId = setInterval(() => {
+        if (gameOver) return;
+
+        position -= 3;
+        if (position <= 0) {
+          position = 0;
+          gameOver = true;
+          clearInterval(intervalId);
+          document.getElementById("status").textContent =
+            "You tried. She’s mine. 💍";
+        }
+
+        updateBar();
+      }, 200);
     }
 
+    // initialize position
     updateBar();
-  }, 200);
-}
-
-updateBar();
-
   </script>
+
 </body>
 </html>
