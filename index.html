@@ -67,6 +67,39 @@
       text-align: center;
       font-size: 18px;
     }
+
+    #rope-container {
+  position: relative;
+  height: 120px;
+  margin: 30px 0;
+}
+
+#rope {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    #cbd5e1,
+    #cbd5e1 10px,
+    #94a3b8 10px,
+    #94a3b8 20px
+  );
+  border-radius: 4px;
+}
+
+#diep {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  transition: left 0.15s ease-out;
+  pointer-events: none;
+}
+
   </style>
 </head>
 
@@ -91,11 +124,11 @@
   <h1>Tug of War</h1>
   <p style="text-align:center;">Fight me for Diệp.</p>
 
-  <div style="background:#1e293b; border-radius:8px; height:30px; margin:20px 0;">
-    <div id="bar"
-         style="height:100%; width:50%; background:#22c55e; border-radius:8px;">
-    </div>
-  </div>
+<div id="rope-container">
+  <div id="rope"></div>
+  <img id="diep" src="diep.png" alt="Diệp">
+</div>
+
 
 <button id="startBtn" onclick="startGame()">Catch these hands</button>
 <button id="pullBtn" onclick="playerPull()" style="display:none;">
@@ -131,11 +164,12 @@ let position = 50;
 let gameOver = false;
 
 function updateBar() {
-  const bar = document.getElementById("bar");
-  if (bar) {
-    bar.style.width = position + "%";
-  }
+  const diep = document.getElementById("diep");
+  if (!diep) return;
+
+  diep.style.left = position + "%";
 }
+
 
 function playerPull() {
   if (gameOver) return;
