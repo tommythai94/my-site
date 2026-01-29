@@ -202,7 +202,6 @@ button {
     }
 
     /* ---------- GAME STATE ---------- */
-    let snapInProgress = false;
     let position = 50;
     let gameStarted = false;
     let gameOver = false;
@@ -277,13 +276,11 @@ intervalId = setInterval(() => {
 if (position >= 92 && !trapTriggered) {
   trapTriggered = true;
   document.getElementById("status").textContent = "WAIT—";
+  document.getElementById("diep").src = DIEP_SNAP_SEQUENCE[0]; // p3
 }
 
 
 
-if (snapInProgress) {
-  return; // ❄️ total freeze during snap animation
-}
 
 if (trapTriggered) {
   position -= 2; // slow, dramatic pull-back
