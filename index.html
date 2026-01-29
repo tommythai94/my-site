@@ -226,24 +226,25 @@ button {
 function playerPull() {
   if (!gameStarted || gameOver) return;
 
-  // player strength weakens as they get closer to winning
   let pullStrength;
 
-  if (position > 80) {
-    pullStrength = 0.6;      // almost impossible near the edge
-  } else if (position > 65) {
-    pullStrength = 1.2;
+  if (position < 70) {
+    pullStrength = 4.5;      // feels VERY strong early
+  } else if (position < 90) {
+    pullStrength = 2.2;      // still moving, but slower
   } else {
-    pullStrength = 3;        // feels strong early
+    pullStrength = 0.3;      // fake progress zone 😈
   }
 
   position += pullStrength;
 
-  if (position > 95) position = 95;
+  // hard cap — they can never actually win
+  if (position > 94) position = 94;
 
   updateBar();
   updateStatus();
 }
+
 
 
     function updateStatus() {
