@@ -273,17 +273,18 @@ function playerPull() {
 intervalId = setInterval(() => {
   if (gameOver) return;
 
-  let pullBack;
+let pullBack;
 
-  if (position > 80) {
-    pullBack = 6;        // collapse zone 😈
-    dx *= 1.02;          // chaos ramps here
-    dy *= 1.02;
-  } else if (position > 65) {
-    pullBack = 4;
-  } else {
-    pullBack = 2;
-  }
+if (position > 90) {
+  pullBack = 8;        // sudden collapse
+  dx *= 1.03;
+  dy *= 1.03;
+} else if (position > 70) {
+  pullBack = 3;        // tension zone
+} else {
+  pullBack = 1.5;      // barely pulling early
+}
+
 
   // cap chaos speed
   dx = Math.min(dx, 8);
