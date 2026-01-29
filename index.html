@@ -160,7 +160,7 @@ button {
 
   <!-- ================= PAGE 2 ================= -->
   <section id="page2" class="page">
-    <h1>Tug of War</h1>
+<h1 id="gameTitle">Tug of War</h1>
     <p class="subtitle">Fight me for Diep.</p>
 
     <div id="rope-container">
@@ -292,13 +292,23 @@ if (trapTriggered) {
 
   const diepImg = document.getElementById("diep");
 
-  if (position > 66) {
-    diepImg.src = DIEP_SNAP_SEQUENCE[0]; // p3
-  } else if (position > 33) {
-    diepImg.src = DIEP_SNAP_SEQUENCE[1]; // p4
-  } else if (position > 0) {
-    diepImg.src = DIEP_SNAP_SEQUENCE[2]; // p5
-  }
+if (position > 66) {
+  diepImg.src = DIEP_SNAP_SEQUENCE[0]; // p3
+  status.textContent = "YOU THOUGHT";
+} else if (position > 33) {
+  diepImg.src = DIEP_SNAP_SEQUENCE[1]; // p4
+  status.textContent = "But some back into it!";
+} else if (position > 0) {
+  diepImg.src = DIEP_SNAP_SEQUENCE[2]; // p5
+  status.textContent = "She’s all mine.";
+
+  const title = document.getElementById("gameTitle");
+  title.textContent = "BIG NEWS COMING SOON...";
+  title.style.fontSize = "64px";
+  title.style.letterSpacing = "2px";
+}
+
+
 } else {
   position -= 1; // gentle drift before trap
 }
