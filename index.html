@@ -202,6 +202,7 @@ button {
     }
 
     /* ---------- GAME STATE ---------- */
+    let snapInProgress = false;
     let position = 50;
     let gameStarted = false;
     let gameOver = false;
@@ -247,13 +248,20 @@ function playerPull() {
 
 function playSnapSequence() {
   const diepImg = document.getElementById("diep");
+  snapInProgress = true;
 
   DIEP_SNAP_SEQUENCE.forEach((src, index) => {
     setTimeout(() => {
       diepImg.src = src;
     }, index * SNAP_FRAME_DELAY);
   });
+
+  // unlock AFTER the full sequence finishes
+  setTimeout(() => {
+    snapInProgress = false;
+  }, DIEP_SNAP_SEQUENCE.length * SNAP_FRAME_DELAY);
 }
+
 
 
 
@@ -296,13 +304,16 @@ if (position >= 92 && !trapTriggered) {
 
 
 
-  if (trapTriggered) {
-    // 💥 HARD SNAP BACK — ALWAYS RUNS
-    position -= 3;
-  } else {
-    // gentle drift early
-    position -= 1;
-  }
+if (snapInProgress) {
+  return; // ❄️ total freeze during snap animation
+}
+
+if (trapTriggered) {
+  position -= 3;
+} else {
+  position -= 1;
+}
+
 
 if (position <= 0) {
   position = 0;
