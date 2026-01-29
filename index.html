@@ -213,6 +213,7 @@ const DIEP_IDLE = "diep.png";
 const DIEP_CLICKING = "p2.jpg";
 const DIEP_SNAP_SEQUENCE = ["p3.jpg", "p4.jpg", "p5.jpg"];
 const DIEP_LOSE = "p6.jpg";
+const SNAP_FRAME_DELAY = 400; // ms per frame
 
     document.getElementById("diep").src = DIEP_IDLE;
 
@@ -250,9 +251,10 @@ function playSnapSequence() {
   DIEP_SNAP_SEQUENCE.forEach((src, index) => {
     setTimeout(() => {
       diepImg.src = src;
-    }, index * 250);
+    }, index * SNAP_FRAME_DELAY);
   });
 }
+
 
 
 
@@ -289,7 +291,9 @@ if (position >= 92 && !trapTriggered) {
   trapTriggered = true;
   document.getElementById("status").textContent = "WAIT—";
   playSnapSequence();
+  return; // ⛔ freeze movement during snap
 }
+
 
 
   if (trapTriggered) {
