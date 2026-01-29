@@ -86,6 +86,23 @@
       <button onclick="increment()">Click Me</button>
     </div>
   </div>
+  
+<div class="container">
+  <h1>Tug of War</h1>
+  <p style="text-align:center;">Fight me for Diệp.</p>
+
+  <div style="background:#1e293b; border-radius:8px; height:30px; margin:20px 0;">
+    <div id="bar"
+         style="height:100%; width:50%; background:#22c55e; border-radius:8px;">
+    </div>
+  </div>
+
+  <button onclick="playerPull()">Pull Her Back</button>
+
+  <p id="status" style="text-align:center; margin-top:16px;">
+    She’s undecided…
+  </p>
+</div>
 
   <script>
     let count = 0;
@@ -105,6 +122,58 @@
       count++;
       document.getElementById("count").textContent = count;
     }
+let position = 50;
+let gameOver = false;
+
+function updateBar() {
+  const bar = document.getElementById("bar");
+  if (bar) {
+    bar.style.width = position + "%";
+  }
+}
+
+function playerPull() {
+  if (gameOver) return;
+
+  position += 2;
+  if (position > 95) position = 95;
+
+  updateBar();
+  updateStatus();
+}
+
+function updateStatus() {
+  const status = document.getElementById("status");
+  if (!status) return;
+
+  if (position < 20) {
+    status.textContent = "She’s already choosing me 😌";
+  } else if (position < 40) {
+    status.textContent = "You’re slipping…";
+  } else if (position < 60) {
+    status.textContent = "Still fighting?";
+  } else {
+    status.textContent = "You almost had her…";
+  }
+}
+
+setInterval(() => {
+  if (gameOver) return;
+
+  position -= 3;
+  if (position <= 0) {
+    position = 0;
+    gameOver = true;
+
+    const status = document.getElementById("status");
+    if (status) {
+      status.textContent = "You tried. She’s mine. 💍";
+    }
+  }
+
+  updateBar();
+}, 200);
+
   </script>
 </body>
 </html>
