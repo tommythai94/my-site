@@ -228,15 +228,15 @@ button {
 function playerPull() {
   if (!gameStarted || gameOver) return;
 
-  // Once trap is triggered, clicking does nothing
+  // 🚫 once trap triggers, clicks do NOTHING
   if (trapTriggered) return;
 
-  position += 5;          // VERY generous
+  position += 5;           // easy progress
   if (position > 94) position = 94;
 
   updateBar();
-  updateStatus();
 }
+
 
 
 
@@ -267,23 +267,17 @@ function playerPull() {
 intervalId = setInterval(() => {
   if (gameOver) return;
 
-  // 🔥 SNAP TRIGGER
+  // 🔥 SNAP TRIGGER (one-way)
   if (position >= 92 && !trapTriggered) {
     trapTriggered = true;
+    document.getElementById("status").textContent = "WAIT—";
   }
 
   if (trapTriggered) {
-    // violent yank left
-    position -= 12;
-
-    // chaos spike
-    dx *= 1.05;
-    dy *= 1.05;
-
-    dx = Math.min(dx, 12);
-    dy = Math.min(dy, 12);
+    // 💥 HARD SNAP BACK — ALWAYS RUNS
+    position -= 15;
   } else {
-    // gentle pull early
+    // gentle drift early
     position -= 1;
   }
 
@@ -298,6 +292,7 @@ intervalId = setInterval(() => {
 
   updateBar();
 }, 200);
+
 
 
 }   // ✅ end of startGame
