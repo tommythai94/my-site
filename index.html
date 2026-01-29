@@ -341,8 +341,12 @@ intervalId = setInterval(() => {
     title.style.fontSize = "64px";
     title.style.letterSpacing = "2px";
 
-    const subtitle = document.getElementById("gameSubtitle");
-    subtitle.style.display = "none";
+const subtitle = document.getElementById("gameSubtitle");
+subtitle.textContent = "Don’t tell Diep.";
+subtitle.style.display = "block";
+subtitle.style.fontSize = "20px";
+subtitle.style.opacity = "0.8";
+
   }
 }, 200);
 
