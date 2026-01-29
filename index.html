@@ -220,21 +220,22 @@ const DIEP_LOSE = "p6.jpg";
 
     document.getElementById("diep").src = DIEP_IDLE;
 
-    function updateBar() {
-      const diep = document.getElementById("diep");
-      const rope = document.getElementById("rope-container");
-      if (!diep || !rope) return;
+function updateBar(scale = 1) {
+  const diep = document.getElementById("diep");
+  const rope = document.getElementById("rope-container");
+  if (!diep || !rope) return;
 
-      const ropeWidth = rope.offsetWidth;
-      const diepWidth = diep.offsetWidth;
-      const maxX = ropeWidth - diepWidth;
+  const ropeWidth = rope.offsetWidth;
+  const diepWidth = diep.offsetWidth;
+  const maxX = ropeWidth - diepWidth;
 
-      const x = (position / 100) * maxX;
+  const x = (position / 100) * maxX;
 
-      diep.style.left = x + "px";
-      diep.style.transform =
-        `rotate(${(50 - position) * 0.15}deg)`;
-    }
+  diep.style.left = x + "px";
+  diep.style.transform =
+    `rotate(${(50 - position) * 0.15}deg) scale(${scale})`;
+}
+
 
 function playerPull() {
   if (!gameStarted || gameOver || trapTriggered) return;
@@ -294,27 +295,37 @@ if (trapTriggered) {
   const diepImg = document.getElementById("diep");
   const status = document.getElementById("status");
 
-  // FIRST THIRD (92 → 66)
-  if (position > 66 && snapStage === 0) {
-    snapStage = 1;
-    diepImg.src = DIEP_SNAP_SEQUENCE[0]; // p3
-    status.textContent = "YOU THOUGHT";
+  let scale = 1;
+
+  // IMAGE + SCALE STAGES (locked, no blinking)
+  if (position > 66) {
+    if (snapStage !== 1) {
+      diepImg.src = DIEP_SNAP_SEQUENCE[0]; // p3
+      status.textContent = "YOU THOUGHT";
+      snapStage = 1;
+    }
+    scale = 1.75; // 🔥 p3 = 75% bigger
+  } 
+  else if (position > 33) {
+    if (snapStage !== 2) {
+      diepImg.src = DIEP_SNAP_SEQUENCE[1]; // p4
+      status.textContent = "Put some back into it!";
+      snapStage = 2;
+    }
+    scale = 1; // normal
+  } 
+  else if (position > 0) {
+    if (snapStage !== 3) {
+      diepImg.src = DIEP_SNAP_SEQUENCE[2]; // p5
+      status.textContent = "She’s all mine.";
+      snapStage = 3;
+    }
+    scale = 1.5; // 🔥 p5 = 50% bigger
   }
 
-  // SECOND THIRD (66 → 33)
-  else if (position <= 66 && position > 33 && snapStage === 1) {
-    snapStage = 2;
-    diepImg.src = DIEP_SNAP_SEQUENCE[1]; // p4
-    status.textContent = "Put some back into it!";
-  }
-
-  // FINAL THIRD (33 → 0)
-  else if (position <= 33 && snapStage === 2) {
-    snapStage = 3;
-    diepImg.src = DIEP_SNAP_SEQUENCE[2]; // p5
-    status.textContent = "She’s all mine.";
-  }
+  updateBar(scale);
 }
+
 
 
 
